@@ -1,0 +1,782 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ICECO</title>
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"
+    />
+
+    <!-- jQuery CDN (included here so everything stays in one file) -->
+    <script
+      src="https://code.jquery.com/jquery-3.7.1.min.js"
+      integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo="
+      crossorigin="anonymous"
+    ></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+
+    <style>
+      /* ----------------- Reset & Base ----------------- */
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      html,
+      body {
+        font-family: Arial, sans-serif;
+        background-color: #1a1a1a; /* dark gray-black */
+        color: #ffffff;
+        scroll-behavior: smooth;
+      }
+      a {
+        color: #ff6600; /* primary orange */
+        text-decoration: none;
+      }
+      a:hover {
+        text-decoration: underline;
+      }
+
+      /* -------------- HERO / LANDING IMAGE -------------- */
+      .hero {
+        height: 100vh; /* full viewport height */
+        background: url("https://thedeveloper.live/AcuCustom/Sitename/DAM/146/beauty_2Dev_thumb.jpg")
+          center center / cover no-repeat;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position: relative;
+      }
+      /* (Optional) Semi‐transparent dark overlay on top of image for better text contrast */
+      .hero::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.4);
+      }
+      .hero .hero-content {
+        position: relative;
+        text-align: center;
+        color: #ffffff;
+        z-index: 1;
+      }
+      .hero h1 {
+        font-size: 3rem;
+        margin-bottom: 0.5rem;
+      }
+      .hero p {
+        font-size: 1.2rem;
+      }
+
+      /* -------------- NAVBAR -------------- */
+      nav {
+        width: 100%;
+        background-color: rgba(0, 0, 0, 0.6);
+        position: fixed;
+        top: 0;
+        left: 0;
+        z-index: 10;
+      }
+      .nav-container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 1rem 1.5rem;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+      }
+      .nav-brand {
+        font-size: 1.5rem;
+        font-weight: bold;
+        color: #ff6600;
+      }
+      .nav-menu {
+        list-style: none;
+        display: flex;
+      }
+      .nav-menu li {
+        margin-left: 1.5rem;
+      }
+      .nav-menu a {
+        font-size: 1rem;
+        color: #ffffff;
+        transition: color 0.2s ease;
+      }
+      .nav-menu a:hover {
+        color: #ff6600;
+      }
+
+      /* -------------- SECTION TITLES -------------- */
+      .section {
+        padding: 4rem 1.5rem;
+        max-width: 1200px;
+        margin: 0 auto;
+      }
+      .section-title {
+        font-size: 2.5rem;
+        color: #ff6600;
+        margin-bottom: 1rem;
+        text-align: center;
+      }
+      .section-subtitle {
+        font-size: 1.1rem;
+        color: #cccccc;
+        margin-bottom: 2rem;
+        text-align: center;
+        max-width: 800px;
+        margin-left: auto;
+        margin-right: auto;
+      }
+
+      /* -------------- CARDS (Vision/Mission/Offer) -------------- */
+      .cards-container {
+        display: flex;
+        justify-content: center;
+        gap: 2rem;
+      }
+      .card {
+        background-color: #2a2a2a;
+        border-radius: 8px;
+        overflow: hidden;
+        flex: 0 0 350px;
+        max-width: 350px;
+        display: flex;
+        flex-direction: column;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+        transition: transform 0.2s ease, box-shadow 0.2s ease;
+      }
+      .card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.5);
+      }
+      .card img {
+        width: 100%;
+        height: 200px;
+        object-fit: cover;
+      }
+      .card-content {
+        padding: 1.5rem;
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+      }
+      .card-content img {
+        margin-bottom: 1rem;
+        object-fit: cover;
+      }
+      .card-content h3 {
+        font-size: 1.5rem;
+        margin-bottom: 0.75rem;
+        color: #ff6600;
+      }
+      .card-content p {
+        font-size: 1rem;
+        line-height: 1.5;
+        color: #dddddd;
+        flex: 1;
+      }
+
+      /* -------------- PARTNERS CARDS -------------- */
+      #partners .cards-container .card {
+        flex: 0 0 50%;
+        max-width: 50%;
+      }
+
+      /* -------------- FOOTER (Optional) -------------- */
+      footer {
+        background-color: #111111;
+        color: #777777;
+        text-align: center;
+        padding: 2rem 1.5rem;
+        font-size: 0.9rem;
+      }
+
+      /* -------------- RESPONSIVE -------------- */
+      @media (max-width: 768px) {
+        .hero h1 {
+          font-size: 2.5rem;
+        }
+        .card {
+          flex: 0 0 100%;
+          max-width: 100%;
+        }
+        .nav-menu {
+          display: none; /* hide menu on small screens */
+        }
+      }
+
+      /* — override centering for just the offer list — */
+      .offer-list {
+        list-style-type: disc;
+        list-style-position: inside;
+        text-align: left; /* left-align the text */
+        padding-left: 0; /* reset any default indent */
+        margin-top: 1rem; /* space above the list */
+        width: 100%; /* ensure it fills the card’s width */
+        align-self: flex-start; /* if parent is flex, let it expand full width */
+      }
+
+      /* Optional: style the <li> markers & text spacing */
+      .offer-list li {
+        margin-bottom: 0.75rem;
+        color: #dddddd;
+        font-size: 1rem;
+        line-height: 1.5;
+      }
+
+      .offer-list li strong {
+        color: #ff6600;
+      }
+
+      .whatsapp-float {
+        position: fixed;
+        width: 60px;
+        height: 60px;
+        bottom: 20px;
+        right: 20px;
+        background-color: #25d366;
+        border-radius: 50%;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        z-index: 1000;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: transform 0.2s;
+      }
+      .whatsapp-float:hover {
+        transform: scale(1.1);
+      }
+      .whatsapp-float img {
+        width: 35px;
+        height: 35px;
+      }
+      /* Projects Section */
+      #projects .project-section {
+        display: flex;
+        align-items: center;
+        margin-bottom: 4rem;
+      }
+      #projects .project-section:nth-child(even) {
+        flex-direction: row-reverse;
+      }
+      .project-description {
+        flex: 1;
+        padding: 1rem;
+      }
+      .project-description h3 {
+        font-size: 2rem;
+      }
+      .project-carousel {
+        flex: 1;
+        position: relative;
+        aspect-ratio: 5 / 3;
+        overflow: hidden;
+      }
+      .project-carousel img {
+        width: 100%;
+        height: auto;
+        border-radius: 8px;
+        object-fit: cover;
+        aspect-ratio: 5 / 3;
+      }
+      .carousel-nav {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        background-color: rgba(0, 0, 0, 0.5);
+        color: #fff;
+        padding: 0.5rem;
+        border: none;
+        cursor: pointer;
+        border-radius: 50%;
+      }
+      .carousel-prev {
+        left: 10px;
+      }
+      .carousel-next {
+        right: 10px;
+      }
+      .project-carousel .swiper-container {
+        position: absolute;
+        inset: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- NAVIGATION BAR -->
+    <nav>
+      <div class="nav-container">
+        <div class="nav-brand">ICECO</div>
+        <ul class="nav-menu">
+          <li><a href="#vision">Vision</a></li>
+          <li><a href="#mission">Mission</a></li>
+          <li><a href="#offer">What We Offer</a></li>
+          <li><a href="#partners">Our Partners</a></li>
+        </ul>
+      </div>
+    </nav>
+
+    <!-- HERO / LANDING IMAGE -->
+    <section class="hero">
+      <div class="hero-content">
+        <h1>Welcome to ICECO</h1>
+        <p>Your comfort, our commitment.</p>
+      </div>
+    </section>
+
+    <!-- VISION, MISSION & WHAT WE OFFER SECTION -->
+    <section id="vision-mission-offer" class="section">
+      <h2 class="section-title">Vision, Mission &amp; What We Offer</h2>
+      <p class="section-subtitle">
+        At ICECO, we strive to deliver top‐tier heating, ventilation, and air
+        conditioning services. Learn about our vision, mission, and the
+        solutions we provide.
+      </p>
+
+      <div class="cards-container">
+        <!-- Vision Card -->
+        <div class="card" id="vision">
+          <img
+            src="https://images.pexels.com/photos/373543/pexels-photo-373543.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940"
+            alt="Vision Image"
+          />
+          <div class="card-content">
+            <h3>Our Vision</h3>
+            <p>
+              To be the leading HVAC provider in the region, known for
+              sustainable solutions that ensure comfort and well‐being for every
+              client. We see a world where energy‐efficient climate control is
+              accessible to all, helping communities thrive in every season.
+            </p>
+          </div>
+        </div>
+
+        <!-- Mission Card -->
+        <div class="card" id="mission">
+          <img
+            src="https://images.pexels.com/photos/310983/pexels-photo-310983.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940"
+            alt="Mission Image"
+          />
+          <div class="card-content">
+            <h3>Our Mission</h3>
+            <p>
+              To deliver exceptional HVAC installation, maintenance, and repair
+              services, backed by honest communication and expert craftsmanship.
+              We commit to continuous innovation, using cutting‐edge technology
+              while upholding the highest safety and environmental standards.
+            </p>
+          </div>
+        </div>
+
+        <!-- What We Offer Card -->
+        <div class="card" id="offer">
+          <img
+            src="https://envigaurd.com/topics/wp-content/uploads/2021/11/HVAC.jpg"
+            alt="What We Offer Image"
+          />
+          <div class="card-content">
+            <h3>What We Offer</h3>
+            <ul class="offer-list">
+              <li>
+                <strong>Installation & Setup:</strong> Custom HVAC systems
+                designed to fit any home or business.
+              </li>
+              <li>
+                <strong>Preventive Maintenance:</strong> Regular check-ups and
+                tune-ups to prolong equipment life and improve efficiency.
+              </li>
+              <li>
+                <strong>Repairs & Emergency Service:</strong> Fast response
+                times to restore comfort when you need us most.
+              </li>
+              <li>
+                <strong>Energy Audits:</strong> In-depth analysis to help reduce
+                energy bills and footprint.
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- OUR PARTNERS SECTION -->
+    <section id="partners" class="section">
+      <h2 class="section-title">Our Partners</h2>
+      <p class="section-subtitle">
+        Our partners are the key to our success, showcasing our ability to
+        deliver excellence through strategic collaboration.
+      </p>
+      <div class="cards-container">
+        <!-- Partner Card: Khater Engineering & Trading -->
+        <div class="card" id="partner-khater">
+          <div class="card-content">
+            <img
+              src="https://www.khater-eng.com/wp-content/uploads/2020/05/khater-logo.jpg"
+              alt="Khater Engineering & Trading Logo"
+            />
+            <h3>Khater Engineering &amp; Trading</h3>
+            <p>Exclusive suppliers of Hitachi VRV systems in Lebanon.</p>
+          </div>
+        </div>
+        <!-- Partner Card: 22 Degrees -->
+        <div class="card" id="partner-22degrees">
+          <div class="card-content">
+            <img
+              src="https://www.22degrees.cc/wp-content/themes/degrees/assets/images/22DEG-Logo.svg"
+              alt="22 Degrees Logo"
+            />
+            <h3>22 Degrees</h3>
+            <p>Suppliers of Daikin.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Add this section after your partners section -->
+    <section id="projects" class="section">
+      <h2 class="section-title">Our Projects</h2>
+      <p class="section-subtitle">
+        Explore some of our completed projects across the region.
+      </p>
+
+      <!-- Water Front SP1 -->
+      <div class="project-section">
+        <div class="project-description">
+          <h3>Water Front SP1</h3>
+          <p>
+            Custom waterfront development featuring sustainable HVAC integration
+            for optimal climate control.
+          </p>
+        </div>
+        <div class="project-carousel">
+          <div class="swiper-container">
+            <div class="swiper-wrapper">
+              <div class="swiper-slide">
+                <img
+                  src="assets/Water front SP1/03b47770-0458-46a2-8b6e-00b38a9f4306.JPG"
+                  class="active"
+                  alt="Water Front SP1 - image 1"
+                />
+              </div>
+              <div class="swiper-slide">
+                <img
+                  src="assets/Water front SP1/9af4e4a4-6594-4d1c-9b53-7f99e35303e2.JPG"
+                  alt="Water Front SP1 - image 2"
+                />
+              </div>
+              <div class="swiper-slide">
+                <img
+                  src="assets/Water front SP1/IMG_1853.jpg"
+                  alt="Water Front SP1 - image 2"
+                />
+              </div>
+              <div class="swiper-slide">
+                <img
+                  src="assets/Water front SP1/IMG_1855.jpg"
+                  alt="Water Front SP1 - image 2"
+                />
+              </div>
+              <div class="swiper-slide">
+                <img
+                  src="assets/Water front SP1/IMG_1856.jpg"
+                  alt="Water Front SP1 - image 2"
+                />
+              </div>
+              <div class="swiper-slide">
+                <img
+                  src="assets/Water front SP1/IMG_2676.jpg"
+                  alt="Water Front SP1 - image 2"
+                />
+              </div>
+              <div class="swiper-slide">
+                <img
+                  src="assets/Water front SP1/IMG_2677.jpg"
+                  alt="Water Front SP1 - image 2"
+                />
+              </div>
+            </div>
+
+            <!-- Optional pagination -->
+            <div class="swiper-pagination"></div>
+            <!-- Navigation buttons -->
+            <div class="swiper-button-prev"></div>
+            <div class="swiper-button-next"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- SGH Achrafieh -->
+      <div class="project-section">
+        <div class="project-description">
+          <h3>SGH Achrafieh</h3>
+          <p>
+            Historic site modernization with energy-efficient VRV systems to
+            preserve architectural integrity.
+          </p>
+        </div>
+        <div class="project-carousel">
+          <div class="swiper-container">
+            <div class="swiper-wrapper">
+              <div class="swiper-slide">
+                <img
+                  src="assets/SGH ashrafieh/image-1.JPG"
+                  alt="Water Front SP1 - image 1"
+                />
+              </div>
+              <div class="swiper-slide">
+                <img
+                  src="assets/SGH ashrafieh/image-2.JPG"
+                  alt="Water Front SP1 - image 2"
+                />
+              </div>
+              <div class="swiper-slide">
+                <img
+                  src="assets/SGH ashrafieh/image-3.JPG"
+                  alt="Water Front SP1 - image 2"
+                />
+              </div>
+              <div class="swiper-slide">
+                <img
+                  src="assets/SGH ashrafieh/image-4.JPG"
+                  alt="Water Front SP1 - image 2"
+                />
+              </div>
+              <div class="swiper-slide">
+                <img
+                  src="assets/SGH ashrafieh/image-5.JPG"
+                  alt="Water Front SP1 - image 2"
+                />
+              </div>
+            </div>
+
+            <!-- Optional pagination -->
+            <div class="swiper-pagination"></div>
+            <!-- Navigation buttons -->
+            <div class="swiper-button-prev"></div>
+            <div class="swiper-button-next"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Hotel Vendom -->
+      <div class="project-section">
+        <div class="project-description">
+          <h3>Hotel Vendom</h3>
+          <p>
+            Luxury hotel HVAC overhaul providing silent operation and
+            personalized climate zones.
+          </p>
+        </div>
+        <div class="project-carousel">
+          <div class="swiper-container">
+            <div class="swiper-wrapper">
+              <div class="swiper-slide">
+                <img
+                  src="assets/Hotel vendome/image-1.jpg"
+                  alt="Water Front SP1 - image 1"
+                />
+              </div>
+            </div>
+
+            <!-- Optional pagination -->
+            <div class="swiper-pagination"></div>
+            <!-- Navigation buttons -->
+            <div class="swiper-button-prev"></div>
+            <div class="swiper-button-next"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Holcom Holding -->
+      <div class="project-section">
+        <div class="project-description">
+          <h3>Holcom Holding</h3>
+          <p>
+            Commercial complex equipped with smart climate controls and remote
+            monitoring capabilities.
+          </p>
+        </div>
+        <div class="project-carousel">
+          <div class="swiper-container">
+            <div class="swiper-wrapper">
+              <div class="swiper-slide">
+                <img
+                  src="assets/Holcom holding/image-1.jpg"
+                  alt="Water Front SP1 - image 1"
+                />
+              </div>
+            </div>
+
+            <!-- Optional pagination -->
+            <div class="swiper-pagination"></div>
+            <!-- Navigation buttons -->
+            <div class="swiper-button-prev"></div>
+            <div class="swiper-button-next"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- FNB Bank Headquarters Beirut -->
+      <div class="project-section">
+        <div class="project-description">
+          <h3>FNB Bank Headquarters Beirut</h3>
+          <p>
+            State-of-the-art banking HQ with high-efficiency ventilation and
+            secure environmental controls.
+          </p>
+        </div>
+        <div class="project-carousel">
+          <div class="swiper-container">
+            <div class="swiper-wrapper">
+              <div class="swiper-slide">
+                <img
+                  src="assets/Cma cgm/image-1.jpg"
+                  alt="Water Front SP1 - image 1"
+                />
+              </div>
+            </div>
+
+            <!-- Optional pagination -->
+            <div class="swiper-pagination"></div>
+            <!-- Navigation buttons -->
+            <div class="swiper-button-prev"></div>
+            <div class="swiper-button-next"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- CMA CGM -->
+      <div class="project-section">
+        <div class="project-description">
+          <h3>CMA CGM</h3>
+          <p>
+            Logistics center climate stabilization for sensitive cargo handling
+            and operational efficiency.
+          </p>
+        </div>
+        <div class="project-carousel">
+          <div class="swiper-container">
+            <div class="swiper-wrapper">
+              <div class="swiper-slide">
+                <img
+                  src="assets/Cma cgm/image-1.jpg"
+                  alt="Water Front SP1 - image 1"
+                />
+              </div>
+              <div class="swiper-slide">
+                <img
+                  src="assets/Cma cgm/image-2.jpg"
+                  alt="Water Front SP1 - image 1"
+                />
+              </div>
+              <div class="swiper-slide">
+                <img
+                  src="assets/Cma cgm/image-3.jpg"
+                  alt="Water Front SP1 - image 1"
+                />
+              </div>
+              <div class="swiper-slide">
+                <img
+                  src="assets/Cma cgm/image-4.jpg"
+                  alt="Water Front SP1 - image 1"
+                />
+              </div>
+              <div class="swiper-slide">
+                <img
+                  src="assets/Cma cgm/image-5.jpg"
+                  alt="Water Front SP1 - image 1"
+                />
+              </div>
+              <div class="swiper-slide">
+                <img
+                  src="assets/Cma cgm/image-6.jpg"
+                  alt="Water Front SP1 - image 1"
+                />
+              </div>
+            </div>
+
+            <!-- Optional pagination -->
+            <div class="swiper-pagination"></div>
+            <!-- Navigation buttons -->
+            <div class="swiper-button-prev"></div>
+            <div class="swiper-button-next"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Abdel Wahab Towers Achrafieh -->
+      <div class="project-section">
+        <div class="project-description">
+          <h3>Abdel Wahab Towers Achrafieh</h3>
+          <p>
+            Mixed-use twin towers featuring zoned climate control to maximize
+            resident comfort.
+          </p>
+        </div>
+        <div class="project-carousel">
+          <div class="swiper-container">
+            <div class="swiper-wrapper">
+              <div class="swiper-slide">
+                <img
+                  src="assets/Abdel wahab towers ashrafieh/image-1.jpg"
+                  alt="Water Front SP1 - image 1"
+                />
+              </div>
+              <div class="swiper-slide">
+                <img
+                  src="assets/Abdel wahab towers ashrafieh/image-2.jpg"
+                  alt="Water Front SP1 - image 1"
+                />
+              </div>
+            </div>
+      </div>
+    </section>
+
+    <!-- (Optional) FOOTER -->
+    <footer>&copy; 2025 ICECO. All rights reserved.</footer>
+
+    <a
+      href="https://wa.me/96171853050?text=Hello%2C%20I%20would%20like%20to%20know%20more%20info%20about%20the%20services."
+      class="whatsapp-float"
+      target="_blank"
+      rel="noopener"
+      aria-label="Chat with us on WhatsApp"
+    >
+      <img
+        src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg"
+        alt="WhatsApp"
+      />
+    </a>
+  </body>
+</html>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    document
+      .querySelectorAll(".swiper-container")
+      .forEach(function (container) {
+        new Swiper(container, {
+          loop: true,
+          navigation: {
+            nextEl: container.querySelector(".swiper-button-next"),
+            prevEl: container.querySelector(".swiper-button-prev"),
+          },
+          pagination: {
+            el: container.querySelector(".swiper-pagination"),
+            clickable: true,
+          },
+          // adjust these to taste:
+          spaceBetween: 20,
+          slidesPerView: "auto",
+        });
+      });
+  });
+</script>
