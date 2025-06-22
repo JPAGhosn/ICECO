@@ -20,7 +20,7 @@
 
     <style>
       :root {
-        --swiper-navigation-color: #ff6600
+        --swiper-navigation-color: #ff6600;
       }
       /* ----------------- Reset & Base ----------------- */
       * {
@@ -41,6 +41,9 @@
       }
       a:hover {
         text-decoration: underline;
+      }
+      p {
+        line-height: 1.7rem;
       }
 
       /* -------------- HERO / LANDING IMAGE -------------- */
@@ -98,6 +101,12 @@
         font-size: 1.5rem;
         font-weight: bold;
         color: #ff6600;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+      }
+      .iceco-logo {
+        height: 80px;
       }
       .nav-menu {
         list-style: none;
@@ -126,6 +135,9 @@
         color: #ff6600;
         margin-bottom: 1rem;
         text-align: center;
+      }
+      .section-title-left {
+        text-align: left;
       }
       .section-subtitle {
         font-size: 1.1rem;
@@ -190,7 +202,8 @@
       /* -------------- PARTNERS CARDS -------------- */
       #partners .cards-container .card {
         flex: 0 0 50%;
-        max-width: 50%;
+        width: 100%;
+        max-width: 100%;
       }
 
       /* -------------- FOOTER (Optional) -------------- */
@@ -200,6 +213,17 @@
         text-align: center;
         padding: 2rem 1.5rem;
         font-size: 0.9rem;
+      }
+
+      @media screen and (max-width: 1145px) {
+        .cards-container {
+          flex-direction: column;
+          align-items: center;
+        }
+        .card {
+          flex: 0 0 100%;
+          max-width: 650px;
+        }
       }
 
       /* -------------- RESPONSIVE -------------- */
@@ -213,6 +237,10 @@
         }
         .nav-menu {
           display: none; /* hide menu on small screens */
+        }
+        .who-we-container {
+          flex-direction: column;
+          align-items: stretch;
         }
       }
 
@@ -326,13 +354,55 @@
         opacity: 1;
         transform: translateX(0);
       }
+
+      .who-we-container {
+        display: flex;
+        align-items: center;
+        gap: 2rem;
+        margin-top: 2rem;
+      }
+      .who-we-image {
+        flex: 1 0 300px;
+        max-width: 500px;
+      }
+      .who-we-image img {
+        width: 100%;
+        height: auto;
+        border-radius: 8px;
+      }
+      .who-we-text {
+        flex: 1;
+      }
+      /* Who We Are child animations */
+      .who-we-image,
+      .who-we-text {
+        opacity: 0;
+        transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+      }
+
+      /* start image off to the left, text off to the right */
+      .who-we-image {
+        transform: translateX(-50px);
+      }
+      .who-we-text {
+        transform: translateX(50px);
+      }
+
+      /* when container has .in-view, animate children into place */
+      .who-we-container.in-view .who-we-image,
+      .who-we-container.in-view .who-we-text {
+        opacity: 1;
+        transform: translateX(0);
+      }
     </style>
   </head>
   <body>
     <!-- NAVIGATION BAR -->
     <nav>
       <div class="nav-container">
-        <div class="nav-brand">ICECO</div>
+        <div class="nav-brand">
+          <img src="assets/iceco-logo.png" alt="iceco" class="iceco-logo" />
+        </div>
         <ul class="nav-menu">
           <li><a href="#vision">Vision</a></li>
           <li><a href="#mission">Mission</a></li>
@@ -354,9 +424,11 @@
     <section id="vision-mission-offer" class="section">
       <h2 class="section-title">Vision, Mission &amp; What We Offer</h2>
       <p class="section-subtitle">
-        At ICECO, we strive to deliver top‐tier heating, ventilation, and air
-        conditioning services. Learn about our vision, mission, and the
-        solutions we provide.
+        At ICECO, we aim to provide exceptional HVAC solutions that enhance the
+        comfort, well-being, and efficiency of our clients ' spaces. We are
+        committed to delivering the highest quality services, tailored to
+        individual needs, while prioritizing sustainability and energy
+        efficiency.
       </p>
 
       <div class="cards-container">
@@ -369,10 +441,11 @@
           <div class="card-content">
             <h3>Our Vision</h3>
             <p>
-              To be the leading HVAC provider in the region, known for
-              sustainable solutions that ensure comfort and well‐being for every
-              client. We see a world where energy‐efficient climate control is
-              accessible to all, helping communities thrive in every season.
+              Our vision is to be the epitome of professionalism in the HVAC
+              industry. We aspire to set the highest standards for quality
+              workmanship, ethics, and customer service. We see a future where
+              professionalism is not just a trait but a guarantee in every
+              interaction, making us the trusted choice for all HVAC needs
             </p>
           </div>
         </div>
@@ -386,10 +459,11 @@
           <div class="card-content">
             <h3>Our Mission</h3>
             <p>
-              To deliver exceptional HVAC installation, maintenance, and repair
-              services, backed by honest communication and expert craftsmanship.
-              We commit to continuous innovation, using cutting‐edge technology
-              while upholding the highest safety and environmental standards.
+              Our mission is to deliver professional HVAC services with
+              unwavering integrity, technical excellence, and unparalleled
+              customer care. We are dedicated to providing efficient, reliable,
+              and cost- effective solutions, ensuring the utmost comfort and
+              satisfaction for our clients.
             </p>
           </div>
         </div>
@@ -402,7 +476,13 @@
           />
           <div class="card-content">
             <h3>What We Offer</h3>
-            <ul class="offer-list">
+            <p>
+              Heating Services, Cooling Services, Ventilation Services,
+              Commercial and Residential Projects, Energy Efficiency Upgrades,
+              Indoor Air Quality. We offer a maintenance plan, as well as
+              emergency repairs.
+            </p>
+            <!-- <ul class="offer-list">
               <li>
                 <strong>Installation & Setup:</strong> Custom HVAC systems
                 designed to fit any home or business.
@@ -419,8 +499,38 @@
                 <strong>Energy Audits:</strong> In-depth analysis to help reduce
                 energy bills and footprint.
               </li>
-            </ul>
+            </ul> -->
           </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- WHO ARE WE -->
+    <section id="who-we-are" class="section">
+      <h2 class="section-title section-title-left">Who We Are</h2>
+      <div class="who-we-container">
+        <div class="who-we-image">
+          <img src="assets/who-are-we.png" alt="Who We Are" />
+        </div>
+        <div class="who-we-text">
+          <p>
+            In 1998, our journey began when Mr. Jean Saad established the
+            company to specialize in the installation of basic air-conditioning
+            systems. Over the years, our extensive experience allowed us to
+            emerge as the industry leader in the Lebanese market. Today, we
+            constantly deliver high-quality solutions and quick installations of
+            all types of air conditioning systems such as VRV & Split, in some
+            of Lebanon's most significant projects.
+          </p>
+          <p>
+            At the heart of our organization lies the core team. This team is a
+            harmonious blend of expertise and dedication, comprising our
+            esteemed founder alongside a cohort of highly skilled professionals;
+            a dedicated group of mechanical engineers, foremen, skilled
+            technicians, and laborers. Together, we stand as a unified force,
+            working collaboratively to deliver the highest standards of quality
+            and service to our valued clients.
+          </p>
         </div>
       </div>
     </section>
@@ -470,8 +580,9 @@
         <div class="project-description">
           <h3>Water Front SP1</h3>
           <p>
-            Custom waterfront development featuring sustainable HVAC integration
-            for optimal climate control.
+            Construction of Business Park consisting 6 buildings of 2 basements
+            and 6 upper floors each, this project was executed in 2019 it
+            consisted of over 200 outdoor units over 13000m of copper pipes
           </p>
         </div>
         <div class="project-carousel">
@@ -584,13 +695,16 @@
         </div>
       </div>
 
-      <!-- Hotel Vendom -->
+      <!-- Hotel ALBERGO -->
       <div class="project-section">
         <div class="project-description">
-          <h3>Hotel Vendom</h3>
+          <h3>Hotel ALBERGO</h3>
           <p>
-            Luxury hotel HVAC overhaul providing silent operation and
-            personalized climate zones.
+            A delightful and elegant boutique hotel, is gracefully situated in
+            the heart of Beirut. Completed in 2022, the project encompassed over
+            75 indoor air conditioning units and more than 15 outdoor units.
+            Remarkably, this entire project was successfully completed in less
+            than 3 months.
           </p>
         </div>
         <div class="project-carousel">
@@ -618,8 +732,11 @@
         <div class="project-description">
           <h3>Holcom Holding</h3>
           <p>
-            Commercial complex equipped with smart climate controls and remote
-            monitoring capabilities.
+            35,000 m² of built-up area including offices, warehouses, and
+            parkings. Double-skin facades and modular office spaces. This
+            project was executed is 2009, it consisted of over 600 indoor units,
+            over 70 outdoor units and over 7000m of copper pipes (3 pipes, VRV
+            system)
           </p>
         </div>
         <div class="project-carousel">
@@ -647,8 +764,10 @@
         <div class="project-description">
           <h3>FNB Bank Headquarters Beirut</h3>
           <p>
-            State-of-the-art banking HQ with high-efficiency ventilation and
-            secure environmental controls.
+            The building’s massing is composed of two main towers connected at
+            each level by a glazed circulation ‘bridge’ . This Project was
+            executed in 2018 it consisted of over 200 indoor units, over 30
+            outdoor units, over 2500m of copper pipes (3 pipes, VRV system)
           </p>
         </div>
         <div class="project-carousel">
@@ -676,8 +795,9 @@
         <div class="project-description">
           <h3>CMA CGM</h3>
           <p>
-            Logistics center climate stabilization for sensitive cargo handling
-            and operational efficiency.
+            This project was executed in 2021 within a year it consisted of over
+            100 indoor units, over 30 outdoor units and over 2000m of copper
+            pipes (3 pipes, VRV system)
           </p>
         </div>
         <div class="project-carousel">
@@ -735,8 +855,11 @@
         <div class="project-description">
           <h3>Abdel Wahab Towers Achrafieh</h3>
           <p>
-            Mixed-use twin towers featuring zoned climate control to maximize
-            resident comfort.
+            Construction of Housing Community consisting of 2 Towers and 3
+            Buildings. Each comprising 5 Basement Floors, Roof and Top Roof.
+            This Project was executed in 2014, it consisted over 500 Indoor
+            Units, over 75 outdoor units and over 5000m of copper pipes (2
+            pipes, VRV system)
           </p>
         </div>
         <div class="project-carousel">
@@ -755,6 +878,8 @@
                 />
               </div>
             </div>
+          </div>
+        </div>
       </div>
     </section>
 
@@ -797,24 +922,41 @@
         });
       });
 
-      document.querySelectorAll('.project-section').forEach((section, idx) => {
-      const carousel = section.querySelector('.project-carousel');
-      
-      // idx is 0-based: idx%2===0 ⇒ 1st, 3rd, … sections
-      const offsetValue = (idx % 2 === 0) ? '-50px' : '50px';
-      carousel.style.setProperty('--offset', offsetValue);
+    document.querySelectorAll(".project-section").forEach((section, idx) => {
+      const carousel = section.querySelector(".project-carousel");
 
-      const observer = new IntersectionObserver((entries, obs) => {
-        entries.forEach(entry => {
-          if (entry.isIntersecting) {
-            carousel.classList.add('in-view');
-            obs.unobserve(entry.target);
-          }
-        });
-      }, { threshold: 0.1 });
+      // idx is 0-based: idx%2===0 ⇒ 1st, 3rd, … sections
+      const offsetValue = idx % 2 === 0 ? "-50px" : "50px";
+      carousel.style.setProperty("--offset", offsetValue);
+
+      const observer = new IntersectionObserver(
+        (entries, obs) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              carousel.classList.add("in-view");
+              obs.unobserve(entry.target);
+            }
+          });
+        },
+        { threshold: 0.1 }
+      );
 
       observer.observe(carousel);
     });
 
+    document.querySelectorAll(".who-we-container").forEach((section) => {
+      const obs = new IntersectionObserver(
+        (entries, observer) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              entry.target.classList.add("in-view");
+              observer.unobserve(entry.target);
+            }
+          });
+        },
+        { threshold: 0.1 }
+      );
+      obs.observe(section);
+    });
   });
 </script>
