@@ -19,6 +19,9 @@
     <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
 
     <style>
+      :root {
+        --swiper-navigation-color: #ff6600
+      }
       /* ----------------- Reset & Base ----------------- */
       * {
         margin: 0;
@@ -170,7 +173,7 @@
       }
       .card-content img {
         margin-bottom: 1rem;
-        object-fit: cover;
+        object-fit: contain;
       }
       .card-content h3 {
         font-size: 1.5rem;
@@ -308,6 +311,21 @@
         position: absolute;
         inset: 0;
       }
+      .project-description p {
+        line-height: 25px;
+        margin-top: 20px;
+      }
+      .project-carousel {
+        opacity: 0;
+        transform: translateX(var(--offset, 50px));
+        transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+      }
+
+      /* when in view, reset transform and fade in */
+      .project-carousel.in-view {
+        opacity: 1;
+        transform: translateX(0);
+      }
     </style>
   </head>
   <body>
@@ -419,7 +437,7 @@
         <div class="card" id="partner-khater">
           <div class="card-content">
             <img
-              src="https://www.khater-eng.com/wp-content/uploads/2020/05/khater-logo.jpg"
+              src="assets/khater-logo-removebg-preview.png"
               alt="Khater Engineering & Trading Logo"
             />
             <h3>Khater Engineering &amp; Trading</h3>
@@ -638,7 +656,7 @@
             <div class="swiper-wrapper">
               <div class="swiper-slide">
                 <img
-                  src="assets/Cma cgm/image-1.jpg"
+                  src="assets/FNB bank headquarter beirut/image-1.jpg"
                   alt="Water Front SP1 - image 1"
                 />
               </div>
@@ -778,5 +796,25 @@
           slidesPerView: "auto",
         });
       });
+
+      document.querySelectorAll('.project-section').forEach((section, idx) => {
+      const carousel = section.querySelector('.project-carousel');
+      
+      // idx is 0-based: idx%2===0 ⇒ 1st, 3rd, … sections
+      const offsetValue = (idx % 2 === 0) ? '-50px' : '50px';
+      carousel.style.setProperty('--offset', offsetValue);
+
+      const observer = new IntersectionObserver((entries, obs) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            carousel.classList.add('in-view');
+            obs.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.1 });
+
+      observer.observe(carousel);
+    });
+
   });
 </script>
