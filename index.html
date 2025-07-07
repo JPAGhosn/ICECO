@@ -48,7 +48,7 @@
 
       /* -------------- HERO / LANDING IMAGE -------------- */
       .hero {
-        height: 100vh; /* full viewport height */
+        height: 80vh; /* full viewport height */
         background: url("https://thedeveloper.live/AcuCustom/Sitename/DAM/146/beauty_2Dev_thumb.jpg")
           center center / cover no-repeat;
         display: flex;
@@ -83,11 +83,12 @@
       /* -------------- NAVBAR -------------- */
       nav {
         width: 100%;
-        background-color: rgba(0, 0, 0, 0.6);
+        background-color: rgba(255, 255, 255, 0.9);
         position: fixed;
         top: 0;
         left: 0;
         z-index: 10;
+        box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
       }
       .nav-container {
         padding: 1rem 1.5rem;
@@ -112,7 +113,7 @@
         align-items: center;
       }
       .iceco-logo {
-        height: 80px;
+        height: 70px;
         transition: height 0.3s ease;
       }
       .iceco-logo.shrink {
@@ -127,7 +128,7 @@
       }
       .nav-menu a {
         font-size: 1rem;
-        color: #ffffff;
+        color: #000;
         transition: color 0.2s ease;
       }
       .nav-menu a:hover {
@@ -213,7 +214,7 @@
       #partners .cards-container .card {
         flex: 0 0 50%;
         width: 100%;
-        max-width: 100%;
+        max-width: 550px;
       }
 
       /* -------------- FOOTER (Optional) -------------- */
@@ -251,6 +252,12 @@
         .who-we-container {
           flex-direction: column;
           align-items: stretch;
+        }
+        .nav-container {
+          display: flex;
+          flex-direction: row;
+          align-items: center;
+          justify-content: center;
         }
       }
 
@@ -304,6 +311,17 @@
         display: flex;
         align-items: center;
         margin-bottom: 4rem;
+      }
+      @media screen and (max-width: 663px) {
+        #projects .project-section {
+          display: flex;
+          flex-direction: column !important;
+          align-items: stretch;
+          margin-bottom: 4rem;
+        }
+        #projects .project-section:nth-child(even) {
+          flex-direction: column !important;
+        }
       }
       #projects .project-section:nth-child(even) {
         flex-direction: row-reverse;
